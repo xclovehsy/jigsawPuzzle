@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">jigsawPuzzle</string>
+    <string name="game_name">Jigsaw Puzzle</string>
+    <string name="play">PLAY</string>
+    <string name="guide">guide</string>
+    <string name="about_me">about me</string>
+    <string name="about_me_mes">author：徐聪\nvision:1.0</string>
+    <string name="back">back</string>
+    <string name="guide_mes">从多张图片中，选择一张，分割为4块以上的小图片，打乱后分布，可以拼成原图。（1）可以从多张图片中选择一张图片；（2）通过开始按钮开始游戏，把分隔后的图片打乱分布，并开始计时；（3）通过点击图片进行移动。（4）通过结束按钮判断游戏是否成功完成；（5）APP界面自行设计。（6）动画、复杂度、美观度、自定义功能、程序结构等都是加分项。</string>
+    <string name="game_set">游戏设置</string>
+    <string name="choose_image">选择图片</string>
+    <string name="choose_dif">选择难度</string>
+</resources>
