@@ -8,9 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,10 +33,11 @@ public class Game extends AppCompatActivity {
     private Map<Integer, Chip> chipMap;
     int [] imgIds = {R.drawable.dog411, R.drawable.dog412, R.drawable.dog421, R.drawable.dog422};
     int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    int imgId = -1;
     private int chipCnt = 4;
+    private Button beginBnt;
     private TextView tv;
     private float x1, x2, x3, x4, y1, y2, y3, y4;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,10 @@ public class Game extends AppCompatActivity {
 
     }
 
+
+    /**
+     * 获取chip的初始位置
+     */
     @SuppressLint("CutPasteId")
     private void saveOriginChipPosition(){
         x1 = findViewById(R.id.chip1).getX();
@@ -65,7 +74,6 @@ public class Game extends AppCompatActivity {
         y3 = findViewById(R.id.chip3).getY();
         y4 = findViewById(R.id.chip4).getY();
     }
-
 
     /**
      * 获取正确拼图数量
@@ -83,6 +91,21 @@ public class Game extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void addListener() {
 
+        // 开始按钮
+
+        beginBnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(Chip chip: chipMap.values()){
+                    chip.getView().setVisibility(View.VISIBLE);
+                }
+
+                // ====================添加时钟========================
+//                cb.start();
+            }
+        });
+
+        // 给chip添加响应事件
         for (Chip chip : chipMap.values()) {
             chip.getView().setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -144,6 +167,7 @@ public class Game extends AppCompatActivity {
         Log.d(TAG, "onTouch: BINGOcnt = " + getBINGOChipCnt());
 
         if (getBINGOChipCnt() == chipCnt) {
+//            cb.stop();
 //            tv.setText("BINGO");
             // 添加弹窗
             Drawable icon = getResources().getDrawable(R.drawable.ok);
@@ -213,6 +237,7 @@ public class Game extends AppCompatActivity {
     private void initComponent() {
 //        card = findViewById(R.id.chip1);
         tv = findViewById(R.id.tv);
+        beginBnt = findViewById(R.id.beginBnt);
 
         // 初始化空白
         spaceList.add(new Space(R.id.space1, findViewById(R.id.space1), 1, 1));
@@ -228,6 +253,7 @@ public class Game extends AppCompatActivity {
                 imgIds[1] = R.drawable.dog412;
                 imgIds[2] = R.drawable.dog421;
                 imgIds[3] = R.drawable.dog422;
+                imgId = R.drawable.dog;
                 setChip();
                 break;
             default:
@@ -242,6 +268,8 @@ public class Game extends AppCompatActivity {
      */
     private void setChip() {
 //        relocateChipPosition();
+        // 设置参考图片
+        findViewById(R.id.img).setBackground(getResources().getDrawable(imgId));
 
         // 打乱chipView顺序
         Random random = new Random();
@@ -269,6 +297,11 @@ public class Game extends AppCompatActivity {
 
                 chipMap.put(chipIds[k], new Chip(i, j, view, chipIds[k]));
             }
+        }
+
+        // 隐藏chip
+        for(Chip chip : chipMap.values()){
+            chip.getView().setVisibility(View.INVISIBLE);
         }
 
 
