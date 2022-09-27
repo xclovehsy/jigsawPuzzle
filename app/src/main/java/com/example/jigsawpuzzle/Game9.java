@@ -24,26 +24,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class Game extends AppCompatActivity {
-    private static final String TAG = "leo" + Game.class.getSimpleName();
+public class Game9 extends AppCompatActivity {
+    private static final String TAG = "leo" + Game9.class.getSimpleName();
     private Puzzle puzzle = new Puzzle();
     private MoveButton card;
     //    private List<ImageView> backList = new ArrayList<>();
     private List<Space> spaceList = new ArrayList<>();
     private Map<Integer, Chip> chipMap;
-    int [] imgIds = {R.drawable.dog411, R.drawable.dog412, R.drawable.dog421, R.drawable.dog422};
-    int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    int [] imgIds = {R.drawable.doraemon911, R.drawable.doraemon912,R.drawable.doraemon913,R.drawable.doraemon921,R.drawable.doraemon922,R.drawable.doraemon923,R.drawable.doraemon931,R.drawable.doraemon932,R.drawable.doraemon933};
+    int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4, R.id.chip5, R.id.chip6, R.id.chip7, R.id.chip8, R.id.chip9};
     int imgId = -1;
-    private String puzzleImgName = "ultraman";
-    private int chipCnt = 4;
+    private String puzzleImgName = "doraemon";
+    private int chipCnt = 9;
     private Button beginBnt;
     private TextView tv;
-    private float x1, x2, x3, x4, y1, y2, y3, y4;
+//    private float x1, x2, x3, x4, y1, y2, y3, y4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game9);
 
         // 接受参数
         getMessage();
@@ -60,21 +60,21 @@ public class Game extends AppCompatActivity {
     }
 
 
-    /**
-     * 获取chip的初始位置
-     */
-    @SuppressLint("CutPasteId")
-    private void saveOriginChipPosition(){
-        x1 = findViewById(R.id.chip1).getX();
-        x2 = findViewById(R.id.chip2).getX();
-        x3 = findViewById(R.id.chip3).getX();
-        x4 = findViewById(R.id.chip4).getX();
-
-        y1 = findViewById(R.id.chip1).getY();
-        y2 = findViewById(R.id.chip2).getY();
-        y3 = findViewById(R.id.chip3).getY();
-        y4 = findViewById(R.id.chip4).getY();
-    }
+//    /**
+//     * 获取chip的初始位置
+//     */
+//    @SuppressLint("CutPasteId")
+//    private void saveOriginChipPosition(){
+//        x1 = findViewById(R.id.chip1).getX();
+//        x2 = findViewById(R.id.chip2).getX();
+//        x3 = findViewById(R.id.chip3).getX();
+//        x4 = findViewById(R.id.chip4).getX();
+//
+//        y1 = findViewById(R.id.chip1).getY();
+//        y2 = findViewById(R.id.chip2).getY();
+//        y3 = findViewById(R.id.chip3).getY();
+//        y4 = findViewById(R.id.chip4).getY();
+//    }
 
     /**
      * 获取正确拼图数量
@@ -243,32 +243,29 @@ public class Game extends AppCompatActivity {
         // 初始化空白
         spaceList.add(new Space(R.id.space1, findViewById(R.id.space1), 1, 1));
         spaceList.add(new Space(R.id.space2, findViewById(R.id.space2), 1, 2));
-        spaceList.add(new Space(R.id.space3, findViewById(R.id.space3), 2, 1));
-        spaceList.add(new Space(R.id.space4, findViewById(R.id.space4), 2, 2));
+        spaceList.add(new Space(R.id.space3, findViewById(R.id.space3), 1, 3));
+        spaceList.add(new Space(R.id.space4, findViewById(R.id.space4), 2, 1));
+
+        spaceList.add(new Space(R.id.space5, findViewById(R.id.space5), 2, 2));
+        spaceList.add(new Space(R.id.space6, findViewById(R.id.space6), 2, 3));
+        spaceList.add(new Space(R.id.space7, findViewById(R.id.space7), 3, 1));
+        spaceList.add(new Space(R.id.space8, findViewById(R.id.space8), 3, 2));
+        spaceList.add(new Space(R.id.space9, findViewById(R.id.space9), 3, 3));
 
         // 初始化chip
         switch (puzzleImgName) {
-            case "dog":
-                imgIds[0] = R.drawable.dog411;
-                imgIds[1] = R.drawable.dog412;
-                imgIds[2] = R.drawable.dog421;
-                imgIds[3] = R.drawable.dog422;
-                imgId = R.drawable.dog;
-                setChip();
-                break;
             case "doraemon":
-                imgIds[0] = R.drawable.doraemon411;
-                imgIds[1] = R.drawable.doraemon412;
-                imgIds[2] = R.drawable.doraemon421;
-                imgIds[3] = R.drawable.doraemon422;
+                imgIds[0] = R.drawable.doraemon911;
+                imgIds[1] = R.drawable.doraemon912;
+                imgIds[2] = R.drawable.doraemon913;
+                imgIds[3] = R.drawable.doraemon921;
+                imgIds[4] = R.drawable.doraemon922;
+                imgIds[5] = R.drawable.doraemon923;
+                imgIds[6] = R.drawable.doraemon931;
+                imgIds[7] = R.drawable.doraemon932;
+                imgIds[8] = R.drawable.doraemon933;
+
                 imgId = R.drawable.doraemon;
-                setChip();
-            case "ultraman":
-                imgIds[0] = R.drawable.ultraman411;
-                imgIds[1] = R.drawable.ultraman412;
-                imgIds[2] = R.drawable.ultraman421;
-                imgIds[3] = R.drawable.ultraman422;
-                imgId = R.drawable.ultraman;
                 setChip();
             default:
                 break;
@@ -289,7 +286,7 @@ public class Game extends AppCompatActivity {
         Random random = new Random();
         random.setSeed(System.currentTimeMillis());
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             int a = Math.abs(random.nextInt()) % chipCnt;
             int b = Math.abs(random.nextInt()) % chipCnt;
             int temp = chipIds[a];
@@ -299,8 +296,8 @@ public class Game extends AppCompatActivity {
 
         int k = 0;
         chipMap = new HashMap<>();
-        for (int i = 1; i <= 2; i++) {
-            for (int j = 1; j <= 2; j++, k++) {
+        for (int i = 1; i <= 3; i++) {
+            for (int j = 1; j <= 3; j++, k++) {
 //                int index = i*(chipCnt/2)+j;
 //                Log.d(TAG, "setChip-> chipid:" + chipIds[index]);
                 // 设置chip背景图片
@@ -322,19 +319,19 @@ public class Game extends AppCompatActivity {
         Log.d(TAG, "setChip: chipMapSize=" + chipMap.size());
     }
 
-    /**
-     * 重新定位chip的位置
-     */
-    private void relocateChipPosition() {
-        findViewById(R.id.chip1).setX(x1);
-        findViewById(R.id.chip2).setX(x2);
-        findViewById(R.id.chip3).setX(x3);
-        findViewById(R.id.chip4).setX(x4);
-
-        findViewById(R.id.chip1).setY(y1);
-        findViewById(R.id.chip2).setY(y2);
-        findViewById(R.id.chip3).setY(y3);
-        findViewById(R.id.chip4).setY(y4);
-
-    }
+//    /**
+//     * 重新定位chip的位置
+//     */
+//    private void relocateChipPosition() {
+//        findViewById(R.id.chip1).setX(x1);
+//        findViewById(R.id.chip2).setX(x2);
+//        findViewById(R.id.chip3).setX(x3);
+//        findViewById(R.id.chip4).setX(x4);
+//
+//        findViewById(R.id.chip1).setY(y1);
+//        findViewById(R.id.chip2).setY(y2);
+//        findViewById(R.id.chip3).setY(y3);
+//        findViewById(R.id.chip4).setY(y4);
+//
+//    }
 }
