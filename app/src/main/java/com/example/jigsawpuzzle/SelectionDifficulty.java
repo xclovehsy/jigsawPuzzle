@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 
 public class SelectionDifficulty extends AppCompatActivity {
 
-    private Button diffBnt;
     private Button imgBnt;
     private Button playBnt;
-    private final Puzzle puzzle = new Puzzle();
+    private Spinner diffSp;
+    private String imageName = "";
+    private int imageId = 0;
+    private int diff = 0; // 0表示2×2 1表示3×3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +35,6 @@ public class SelectionDifficulty extends AppCompatActivity {
      * 添加响应事件
      */
     private void addListener() {
-        diffBnt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         imgBnt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,22 +48,53 @@ public class SelectionDifficulty extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 传递参数
-                Intent intent = new Intent(SelectionDifficulty.this, Game.class);
-                intent.putExtra("imageName", puzzle.getImageName());
-                intent.putExtra("imageId", puzzle.getImageId());
-                intent.putExtra("diff", puzzle.getDiff());
-                startActivity(intent);
+                if (diff == 0) { // 2×2
+                    Intent intent = new Intent(SelectionDifficulty.this, Game.class);
+                    intent.putExtra("imageName", imageName);
+                    intent.putExtra("imageId", imageId);
+                    intent.putExtra("diff", diff);
+                    startActivity(intent);
+                } else {  // 选择3×3
+                    Intent intent = new Intent(SelectionDifficulty.this, Game9.class);
+                    intent.putExtra("imageName", imageName);
+                    intent.putExtra("imageId", imageId);
+                    intent.putExtra("diff", diff);
+                    startActivity(intent);
+                }
+
             }
         });
+
+        diffSp.setSelection(0);        //初始化，默认选择列表中第0个元素
+        diffSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                // TODO
+                if (pos == 0) {
+                    diff = 0;
+                } else if (pos == 1) {
+                    diff = 1;
+                } else {
+                    diff = 0;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO
+            }
+        });
+
     }
 
     /**
      * 初始化组件
      */
     private void initComponent() {
-        diffBnt = findViewById(R.id.choosediff);
         imgBnt = findViewById(R.id.chooseImage);
         playBnt = findViewById(R.id.play_game);
+        diffSp = findViewById(R.id.diffSp);
+
 
     }
 }

@@ -18,7 +18,9 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,7 @@ public class Game extends AppCompatActivity {
     private int chipCnt = 4;
     private Button beginBnt;
     private TextView tv;
+    private long time;
     private float x1, x2, x3, x4, y1, y2, y3, y4;
 
     @Override
@@ -97,6 +100,7 @@ public class Game extends AppCompatActivity {
         beginBnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                time = System.currentTimeMillis();
                 for(Chip chip: chipMap.values()){
                     chip.getView().setVisibility(View.VISIBLE);
                 }
@@ -132,8 +136,6 @@ public class Game extends AppCompatActivity {
 
                                 // 判断是否成功完成拼图
                                 isBINGO();
-
-
                                 break;
                             }
                         }
@@ -189,12 +191,33 @@ public class Game extends AppCompatActivity {
                             rePlay();
                         }
                     })
-                    .setMessage("恭喜！时间:[..]")
+                    .setNeutralButton("选择图片及难度", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            startActivity(new Intent(Game.this, SelectionDifficulty.class));
+
+                        }
+                    })
+                    .setMessage("恭喜，您的成绩是: " + getPlayTime())
                     .create()
                     .show();
             return true;
         }
         return false;
+    }
+
+    /**
+     * 获取游戏时间
+     * @return
+     */
+    private String getPlayTime() {
+        Date data = new Date(System.currentTimeMillis()-time);
+        SimpleDateFormat sdf = new SimpleDateFormat("mm:ss:SSSS");
+        // 2.1 将Date类实例对象作为实参传入SimpleDateFormat重载构造器中，转换为自定义参数格式的字符串
+        String[] timeList = sdf.format(data).split(":");
+
+
+        return timeList[0] + "'" + timeList[1] + "''" + timeList[2];
     }
 
     /**

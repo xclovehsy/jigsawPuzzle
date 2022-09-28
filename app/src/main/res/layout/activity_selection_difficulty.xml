@@ -1,53 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
     >
 
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/game_set"
         android:layout_gravity="center_horizontal"
-        android:textSize="40sp"
-        android:layout_marginTop="100sp"
+        android:layout_marginTop="60dp"
+        android:text="@string/game_set"
         android:textColor="@color/black"
-        >
-    </TextView>
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
     <Button
+        android:id="@+id/chooseImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="212dp"
         android:text="@string/choose_image"
         android:textSize="25sp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/chooseImage">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </Button>
 
     <Button
+        android:id="@+id/play_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose_dif"
-        android:textSize="25sp"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/choosediff">
-
-    </Button>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="436dp"
         android:text="@string/play"
         android:textSize="25sp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/play_game">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </Button>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="352dp"
+        android:text="@string/choose_dif"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
+    </TextView>
 
-</LinearLayout>
+    <Spinner
+        android:id="@+id/diffSp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="352dp"
+        android:entries="@array/diff"
+        android:scrollbarSize="20dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </Spinner>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
